@@ -1,7 +1,6 @@
-﻿using Hangfire;
-using Hangfire.Storage;
+﻿using Hangfire.Storage;
 
-namespace HangfireMonitor.Client.Tests;
+namespace Hangfire.Monitor.Core.Tests;
 
 public class JobStorageStub(Func<IMonitoringApi?> getMonitoringApi) : JobStorage
 {

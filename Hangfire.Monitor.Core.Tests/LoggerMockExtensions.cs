@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Internal;
 using Moq;
 
-namespace HangfireMonitor.Client.Tests;
+namespace Hangfire.Monitor.Core.Tests;
 
 public static class LoggerMoqExtensions
 {

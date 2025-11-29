@@ -3,17 +3,18 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Hangfire;
 using Hangfire.Storage;
 using Hangfire.Storage.Monitoring;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 
-namespace HangfireMonitor.Client
+namespace Hangfire.Monitor.Core
 {
-    public class StatisticsPublisher : IDisposable
+    public class StatisticsPublisher : IStatisticsPublisher
     {
+        private static readonly Uri DefaultApiBaseUrl = new Uri("https://hangfiremonitor.com");
+        
         public StatisticsPublisher(string apiKey, Uri apiBaseUrl, ILogger<StatisticsPublisher> logger) : this(CreateHttpClient(apiKey, apiBaseUrl), logger)
         {
         }
@@ -34,7 +35,7 @@ namespace HangfireMonitor.Client
             {
                 currentJobStorage = JobStorage.Current;
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 _logger.LogWarning("Hangfire JobStorage is not initialized. Statistics will not be published.");
                 return;
@@ -79,6 +80,10 @@ namespace HangfireMonitor.Client
                 if (responseMessage.StatusCode != System.Net.HttpStatusCode.Created)
                     _logger.LogWarning("Failed to post statistics. Status code: {StatusCode}", responseMessage.StatusCode);
             }
+            catch (OperationCanceledException)
+            {
+                throw; 
+            }
             catch (Exception e)
             {
                 _logger.LogWarning(e, "Failed to post statistics.");
@@ -89,7 +94,7 @@ namespace HangfireMonitor.Client
         {
             var httpClient = new HttpClient
             {
-                BaseAddress = apiBaseUrl,
+                BaseAddress = apiBaseUrl ?? DefaultApiBaseUrl,
                 DefaultRequestHeaders = { {"X-API-Key", apiKey} }
             };
             

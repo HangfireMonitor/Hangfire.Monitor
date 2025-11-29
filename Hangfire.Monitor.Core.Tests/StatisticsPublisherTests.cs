@@ -1,12 +1,11 @@
 ﻿using System.Net;
 using Hangfire.Storage.Monitoring;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Internal;
 using Moq;
 using Moq.Contrib.HttpClient;
 using Newtonsoft.Json;
 
-namespace HangfireMonitor.Client.Tests;
+namespace Hangfire.Monitor.Core.Tests;
 
 public class StatisticsPublisherTests
 {

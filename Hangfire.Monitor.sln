@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire.Monitor", "Hangfire.Monitor\Hangfire.Monitor.csproj", "{BAF9A33D-C115-4E63-8CCF-4274B70B39B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire.Monitor.Core", "Hangfire.Monitor.Core\Hangfire.Monitor.Core.csproj", "{5B738366-4F12-411D-A881-BFDA39F563E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire.Monitor.Core.Tests", "Hangfire.Monitor.Core.Tests\Hangfire.Monitor.Core.Tests.csproj", "{4FCDDBC7-1110-4223-BB5C-E103B19C8ECD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire.Monitor.Example", "Hangfire.Monitor.Example\Hangfire.Monitor.Example.csproj", "{DA484BBD-0E7F-4665-B949-A90B91F0DECD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BAF9A33D-C115-4E63-8CCF-4274B70B39B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAF9A33D-C115-4E63-8CCF-4274B70B39B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAF9A33D-C115-4E63-8CCF-4274B70B39B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAF9A33D-C115-4E63-8CCF-4274B70B39B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B738366-4F12-411D-A881-BFDA39F563E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B738366-4F12-411D-A881-BFDA39F563E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B738366-4F12-411D-A881-BFDA39F563E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B738366-4F12-411D-A881-BFDA39F563E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FCDDBC7-1110-4223-BB5C-E103B19C8ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FCDDBC7-1110-4223-BB5C-E103B19C8ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FCDDBC7-1110-4223-BB5C-E103B19C8ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FCDDBC7-1110-4223-BB5C-E103B19C8ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA484BBD-0E7F-4665-B949-A90B91F0DECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA484BBD-0E7F-4665-B949-A90B91F0DECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA484BBD-0E7F-4665-B949-A90B91F0DECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA484BBD-0E7F-4665-B949-A90B91F0DECD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

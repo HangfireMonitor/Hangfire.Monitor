@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HangfireMonitor.Client\HangfireMonitor.Client.csproj" />
+      <ProjectReference Include="..\Hangfire.Monitor.Core\Hangfire.Monitor.Core.csproj" />
     </ItemGroup>
 
 </Project>

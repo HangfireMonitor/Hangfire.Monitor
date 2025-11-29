@@ -1,7 +1,7 @@
 ﻿using Hangfire.Storage;
 using Hangfire.Storage.Monitoring;
 
-namespace HangfireMonitor.Client.Tests;
+namespace Hangfire.Monitor.Core.Tests;
 
 public class MonitoringApiStub(Func<StatisticsDto?> getStatisticsDto) : IMonitoringApi
 {
