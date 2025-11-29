@@ -15,21 +15,29 @@ namespace Hangfire.Monitor.Core
     {
         private static readonly Uri DefaultApiBaseUrl = new Uri("https://hangfiremonitor.com");
         
-        public StatisticsPublisher(string apiKey, Uri apiBaseUrl, ILogger<StatisticsPublisher> logger) : this(CreateHttpClient(apiKey, apiBaseUrl), logger)
+        public StatisticsPublisher(string name, string apiKey, Uri apiBaseUrl, ILogger<StatisticsPublisher> logger) : this(name, CreateHttpClient(apiKey, apiBaseUrl), logger)
         {
         }
 
-        public StatisticsPublisher(HttpClient httpClient, ILogger<StatisticsPublisher> logger)
+        public StatisticsPublisher(string name, HttpClient httpClient, ILogger<StatisticsPublisher> logger)
         {
+            _name = name;
             _httpClient = httpClient;
             _logger = logger ?? NullLogger<StatisticsPublisher>.Instance;
         }
 
+        private readonly string _name;
         private readonly HttpClient _httpClient;
         private readonly ILogger<StatisticsPublisher> _logger;
 
         public async Task PublishAsync(CancellationToken cancellationToken = default)
         {
+            if (string.IsNullOrWhiteSpace(_name))
+            {
+                _logger.LogWarning("A name was not provided. Statistics will not be published.");
+                return;
+            }
+            
             JobStorage currentJobStorage;
             try
             {
@@ -72,8 +80,9 @@ namespace Hangfire.Monitor.Core
                 _logger.LogWarning(e, "Hangfire Monitoring API failed to return statistics. Statistics will not be published.");
                 return;
             }
-            
-            var json = JsonConvert.SerializeObject(statistics, Formatting.Indented);
+
+            var payload = Payload.Create(_name, statistics);
+            var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
             try
             {
                 var responseMessage = await _httpClient.PostAsync("/api/statistics", new StringContent(json, Encoding.UTF8, "application/json"), cancellationToken);

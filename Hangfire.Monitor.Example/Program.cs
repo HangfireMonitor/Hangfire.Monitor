@@ -11,7 +11,7 @@ builder.Services.AddHangfire(configuration => configuration
 
 builder.Services.AddHangfireServer();
 
-builder.Services.AddHangfireMonitor(builder.Configuration["HangfireMonitor:ApiKey"]);
+builder.Services.AddHangfireMonitor("MyApplication", builder.Configuration["HangfireMonitor:ApiKey"]);
 
 var app = builder.Build();
 

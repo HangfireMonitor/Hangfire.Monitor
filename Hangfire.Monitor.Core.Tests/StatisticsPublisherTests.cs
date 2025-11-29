@@ -9,6 +9,7 @@ namespace Hangfire.Monitor.Core.Tests;
 
 public class StatisticsPublisherTests
 {
+    private const string Name = "TestApp";
     private HttpClient? _httpClient;
     private StatisticsPublisher? _statisticsPublisher;
     private Mock<HttpMessageHandler> _handler;
@@ -22,7 +23,7 @@ public class StatisticsPublisherTests
         _handler = new Mock<HttpMessageHandler>();
         _httpClient = _handler.CreateClient();
         _httpClient.BaseAddress = new Uri("https://test");
-        _statisticsPublisher = new StatisticsPublisher(_httpClient, _loggerMock.Object);
+        _statisticsPublisher = new StatisticsPublisher(Name, _httpClient, _loggerMock.Object);
         _statistics = new StatisticsDto
         {
             Deleted = 1,
@@ -49,7 +50,7 @@ public class StatisticsPublisherTests
     [Test]
     public async Task PublishAsync_ShouldSendStatistics()
     {
-        Hangfire.JobStorage.Current = new JobStorageStub(() => new MonitoringApiStub(() => _statistics));
+        JobStorage.Current = new JobStorageStub(() => new MonitoringApiStub(() => _statistics));
         
         await _statisticsPublisher!.PublishAsync(CancellationToken.None);
         
@@ -57,18 +58,19 @@ public class StatisticsPublisherTests
         {
             if (message.Content is not StringContent content) return false;
             var json = await content.ReadAsStringAsync();
-            var statistics = JsonConvert.DeserializeObject<StatisticsDto>(json);
+            var payload = JsonConvert.DeserializeObject<Payload>(json);
             
-            return statistics != null &&
-                   statistics.Deleted == _statistics!.Deleted &&
-                   statistics.Enqueued == _statistics.Enqueued &&
-                   statistics.Failed == _statistics.Failed &&
-                   statistics.Processing == _statistics.Processing &&
-                   statistics.Queues == _statistics.Queues &&
-                   statistics.Recurring == _statistics.Recurring &&
-                   statistics.Scheduled == _statistics.Scheduled &&
-                   statistics.Servers == _statistics.Servers &&
-                   statistics.Succeeded == _statistics.Succeeded;
+            return payload != null &&
+                   payload.Name == Name &&
+                   payload.Deleted == _statistics!.Deleted &&
+                   payload.Enqueued == _statistics.Enqueued &&
+                   payload.Failed == _statistics.Failed &&
+                   payload.Processing == _statistics.Processing &&
+                   payload.Queues == _statistics.Queues &&
+                   payload.Recurring == _statistics.Recurring &&
+                   payload.Scheduled == _statistics.Scheduled &&
+                   payload.Servers == _statistics.Servers &&
+                   payload.Succeeded == _statistics.Succeeded;
         });
     }
     
